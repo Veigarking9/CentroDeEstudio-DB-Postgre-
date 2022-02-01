@@ -1,0 +1,26 @@
+drop function getprof;
+create function getprof(profid text) returns prof
+as
+$$
+ select * from prof where DNI = profid;
+$$
+language sql;
+
+
+--------------------------------------------------------------------------------
+
+create function getalum(alumid text) returns alum
+as
+$$
+ select * from alum where DNI = alumid;
+$$
+language sql;
+
+--------------------------------------------------------------------------------
+
+create function getasig(asigid integer) returns asig
+as
+$$
+ select * from asig where cod_asig = asigid;
+$$
+language sql;
