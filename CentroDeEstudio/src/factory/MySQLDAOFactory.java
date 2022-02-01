@@ -8,7 +8,6 @@ package factory;
 import dao.AlumnoDAO;
 import dao.AsignaturaDAO;
 import dao.ClaseDAO;
-import dao.ClaseViewDAO;
 import dao.ProfesorDAO;
 import pool.BasicConnectionPool;
 import java.sql.SQLException;
@@ -21,8 +20,8 @@ import java.sql.Connection;
  */
 public class MySQLDAOFactory extends DAOFactory {
 
-    final static String url = "jdbc:postgresql://localhost:5432/postgres";
-    final static String user = "root";
+    final static String url = "jdbc:postgresql://localhost:5432/CentroEstudio";
+    final static String user = "postgres";
     final static String password = "xabierba2002";
     static BasicConnectionPool bcp;
 
@@ -70,8 +69,5 @@ public class MySQLDAOFactory extends DAOFactory {
        return new ClaseDAO(); 
     }
     
-    public ClaseViewDAO getClaseViewDAO(){
-        return new ClaseViewDAO();
-    }
      
 }

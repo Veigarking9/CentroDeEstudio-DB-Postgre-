@@ -45,9 +45,9 @@ public class ClaseDAO implements Dao<Clase> {
             listaClase = new ArrayList<Clase>(totalRows);
             while (rs.next()) {
                 int NCLASE = rs.getInt(1);
-                int ASIG = rs.getInt(2);
-                String ALUM = rs.getString(3);
-                String PROF = rs.getString(4);
+                String ALUM = rs.getString(2);
+                String PROF = rs.getString(3);
+                String ASIG = rs.getString(4);
 
                 
                 listaClase.add(new Clase(NCLASE, ASIG, ALUM, PROF));
@@ -58,36 +58,32 @@ public class ClaseDAO implements Dao<Clase> {
         }
 // TODO Auto-generated method stub
         return listaClase;
-    }
-    public void setClaseBatchFile(Connection conn) throws SQLException{
-        String cadena;
-        File f = new File("src/batch/batchclase.csv");
-        PreparedStatement ps = conn.prepareStatement("INSERT INTO CLASE(NCLASE, ASIG, ALUM, PROF)"+" VALUES(?,?,?,?)");
-            try (FileReader fr = new FileReader(f);
-                BufferedReader bfr = new BufferedReader(fr)) {
-                
-                while((cadena=bfr.readLine()) != null){
-                    String[] cadenas = cadena.split(";");
-                    int i = 0;
-                    
-                    for(String a : cadenas ){
-                        i++;
-                        if(i == 1) ps.setInt(i, Integer.parseInt(a));
-                        if(i == 2) ps.setInt(i, Integer.parseInt(a));
-                        if(i == 3) ps.setString(i, a);
-                        if(i == 4) ps.setString(i, a);
-                        
-                                             
-                    }
-                    ps.addBatch();  
-                    
-                    
-                }
-                ps.executeBatch();
-            } catch (IOException ex) { System.err.printf("ERROR EN EL INSERT POR BATCH DE LAS CLASES:%s\n",ex.getMessage()); }
+    }  
+    public List<Clase> getByDNI(Connection conn, int NClase){
         
+        List<Clase> listaClaseID = new ArrayList<Clase>();
+        
+        try{
+            
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM CLASE WHERE NCLASE = ?;");
+            ps.setInt(1,NClase);
+            ResultSet rs = ps.executeQuery();
+            listaClaseID = new ArrayList<Clase>();
+            while (rs.next()) {
+                int NCLASE = rs.getInt(1);
+                String ALUM = rs.getString(2);        
+                String PROF = rs.getString(3);
+                String ASIG = rs.getString(4);  
+                
+                listaClaseID.add(new Clase(NCLASE, ALUM, PROF, ASIG));
+            }  
+        }catch(SQLException e){
+            System.out.println("ERROR BUSCANDO POR ID: "+"\n");
+            e.printStackTrace();
+            
+        }
+     return listaClaseID;
     }
-    
     
     
 }

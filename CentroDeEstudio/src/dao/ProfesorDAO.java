@@ -38,6 +38,7 @@ public class ProfesorDAO implements Dao<Profesor> {
             ResultSet rs = s.executeQuery("SELECT * FROM PROF;");
 
             int totalRows = 0;
+            
             rs.last();
             totalRows = rs.getRow();
             rs.beforeFirst();
@@ -47,7 +48,6 @@ public class ProfesorDAO implements Dao<Profesor> {
                 String pname = rs.getString(2);        
                 String papel = rs.getString(3);
                 String dep = rs.getString(4);  
-                
                 listaProf.add(new Profesor(DNI, pname, papel, dep));
             }
         } catch (SQLException e) {
@@ -57,38 +57,35 @@ public class ProfesorDAO implements Dao<Profesor> {
 // TODO Auto-generated method stub
         return listaProf;
     }
-    public void setProfesorBatchFile(Connection conn) throws SQLException{
-        String cadena;
-        File f = new File("src/batch/batchprofesor.csv");
-        PreparedStatement ps = conn.prepareStatement("INSERT INTO PROF(DNI, PNAME, PAPEL, DEP)"+" VALUES(?,?,?,?)");
-            try (FileReader fr = new FileReader(f);
-                BufferedReader bfr = new BufferedReader(fr)) {
-                
-                while((cadena=bfr.readLine()) != null){
-                    String[] cadenas = cadena.split(";");
-                    int i = 0;
-                    
-                    for(String a : cadenas ){
-                        i++;
-                        if(i == 1) ps.setString(i, a);
-                        if(i == 2) ps.setString(i, a);
-                        if(i == 3) ps.setString(i, a);
-                        if(i == 4) ps.setString(i, a);
-                        
-                       
-                        
-                    }
-                    ps.addBatch();  
-                    
-                    
-                }
-                ps.executeBatch();
-            } catch (IOException ex) { System.err.printf("ERROR EN EL INSERT POR BATCH DE LOS PROFESORES:%s\n",ex.getMessage()); }
+    public List<Profesor> getByDNI(Connection conn, String DNIsearch){
         
+        List<Profesor> listaProfDNI = new ArrayList<Profesor>();
+        
+        try{
+            
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM PROF WHERE DNI = ?;");
+            ps.setString(1,DNIsearch);
+            ResultSet rs = ps.executeQuery();
+            listaProfDNI = new ArrayList<Profesor>();
+            while (rs.next()) {
+                String DNI = rs.getString(1);
+                System.out.println(DNI);
+                String pname = rs.getString(2);        
+                String papel = rs.getString(3);
+                String dep = rs.getString(4);  
+                
+                listaProfDNI.add(new Profesor(DNI, pname, papel, dep));
+            }  
+        }catch(SQLException e){
+            System.out.println("ERROR BUSCANDO POR DNI: "+"\n");
+            e.printStackTrace();
+            
+        }
+     return listaProfDNI;
     }
     public void setProfesorInsert(Connection conn, String DNI, String PNAME, String PAPEL, String DEP) throws SQLException{
 
-        PreparedStatement ps = conn.prepareStatement("INSERT INTO PROF(DNI, PNAME, PAPEL, DEP)"+" VALUES(?,?,?,?)");
+        PreparedStatement ps = conn.prepareStatement("INSERT INTO PROF(DNI, NOMBRE, APELLIDO, DEP)"+" VALUES(?,?,?,?)");
         ps.setString(1,DNI);
         ps.setString(2, PNAME);
         ps.setString(3, PAPEL);

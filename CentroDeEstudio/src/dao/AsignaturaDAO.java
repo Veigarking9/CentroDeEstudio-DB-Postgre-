@@ -9,7 +9,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.security.interfaces.RSAKey;
 import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +16,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.sql.SQLException;
 import java.sql.ResultSet;
-import vo.Alumno;
 import vo.Asignatura;
 
 
@@ -55,31 +53,6 @@ public class AsignaturaDAO implements Dao<Asignatura> {
 // TODO Auto-generated method stub
         return listaAsig;
     }
-    public void setAsignaturaBatchFile(Connection conn) throws SQLException{
-        String cadena;
-        File f = new File("src/batch/batchasignatura.csv");
-        PreparedStatement ps = conn.prepareStatement("INSERT INTO ASIG(COD_ASIG, ANAME)"+" VALUES(?,?)");
-            try (FileReader fr = new FileReader(f);
-                BufferedReader bfr = new BufferedReader(fr)) {
-                
-                while((cadena=bfr.readLine()) != null){
-                    String[] cadenas = cadena.split(";");
-                    int i = 0;
-                    
-                    for(String a : cadenas ){
-                        i++;
-                        if(i == 1) ps.setInt(i ,Integer.parseInt(a));
-                        if(i == 2) ps.setString(i, a);
-                           
-                    }
-                    ps.addBatch();  
-                    
-                    
-                }
-                ps.executeBatch();
-            } catch (IOException ex) { System.err.printf("ERROR EN EL INSERT POR BATCH DE LAS ASIGNATURAS:%s\n",ex.getMessage()); }
-        
-    }
     public List<Asignatura> getByCOD_ASIG(Connection conn, int CODsearch){
         
         List<Asignatura> listaAsigCOD = new ArrayList<Asignatura>();
@@ -106,7 +79,7 @@ public class AsignaturaDAO implements Dao<Asignatura> {
     public void setAsignaturaInsert(Connection conn, String ANAME) throws SQLException{
         
 
-        PreparedStatement ps = conn.prepareStatement("INSERT INTO ASIG(COD_ASIG, ANAME)"+" VALUES(?,?)");
+        PreparedStatement ps = conn.prepareStatement("INSERT INTO ASIG(COD_ASIG, NOMBRE)"+" VALUES(?,?)");
         ps.setInt(1,0);
         ps.setString(2, ANAME);
         ps.executeUpdate();

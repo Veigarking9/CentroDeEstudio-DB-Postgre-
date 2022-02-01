@@ -11,7 +11,7 @@ import java.sql.Connection;
 import dao.AlumnoDAO;
 import dao.ProfesorDAO;
 import dao.ClaseDAO;
-import dao.ClaseViewDAO;
+
 
 /**
  *
@@ -32,7 +32,6 @@ public abstract class DAOFactory {
     public abstract ProfesorDAO getProfesorDAO();
     public abstract AsignaturaDAO getAsignaturaDAO();
     public abstract ClaseDAO getClaseDAO();
-    public abstract ClaseViewDAO getClaseViewDAO();
    
     public static DAOFactory getDAOFactory(
             int whichFactory) {

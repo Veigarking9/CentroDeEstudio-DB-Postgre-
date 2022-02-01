@@ -1,7 +1,7 @@
 
 create type address_type as (id integer, city text, country text);
 
-create type person_type as (DNI text, nombre text, apellido text, nacimiento date);
+create type person_type as (DNI text, nombre text, apellido text);
 
 create table person of person_type;
 

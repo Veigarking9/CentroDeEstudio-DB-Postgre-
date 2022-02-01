@@ -61,35 +61,6 @@ public class AlumnoDAO implements Dao<Alumno> {
 // TODO Auto-generated method stub
         return listaAlum;
     }
-    public void setAlumnoBatchFile(Connection conn) throws SQLException{
-        String cadena;
-        File f = new File("src/batch/batchalumno.csv");
-        PreparedStatement ps = conn.prepareStatement("INSERT INTO ALUM(DNI, ANAME, AAPEL, TELF)"+" VALUES(?,?,?,?)");
-            try (FileReader fr = new FileReader(f);
-                BufferedReader bfr = new BufferedReader(fr)) {
-                
-                while((cadena=bfr.readLine()) != null){
-                    String[] cadenas = cadena.split(";");
-                    int i = 0;
-                    
-                    for(String a : cadenas ){
-                        i++;
-                        if(i == 1) ps.setString(i, a);
-                        if(i == 2) ps.setString(i, a);
-                        if(i == 3) ps.setString(i, a);
-                        if(i == 4) ps.setInt(4 ,Integer.parseInt(a));
-                        
-                       
-                        
-                    }
-                    ps.addBatch();  
-                    
-                    
-                }
-                ps.executeBatch();
-            } catch (IOException ex) { System.err.printf("ERROR EN EL INSERT POR BATCH DE LOS ESTUDIANTES: %s\n",ex.getMessage()); }
-        
-    }
     public List<Alumno> getByDNI(Connection conn, String DNIsearch){
         
         List<Alumno> listaAlumDNI = new ArrayList<Alumno>();
@@ -117,7 +88,7 @@ public class AlumnoDAO implements Dao<Alumno> {
     }
     public void setAlumnoInsert(Connection conn, String DNI, String ANAME, String AAPEL, int TELF) throws SQLException{
 
-        PreparedStatement ps = conn.prepareStatement("INSERT INTO ALUM(DNI, ANAME, AAPEL, TELF)"+" VALUES(?,?,?,?)");
+        PreparedStatement ps = conn.prepareStatement("INSERT INTO ALUM(DNI, NOMBRE, APELLIDO, TELEFONO)"+" VALUES(?,?,?,?)");
         ps.setString(1,DNI);
         ps.setString(2, ANAME);
         ps.setString(3, AAPEL);

@@ -1,9 +1,9 @@
-INSERT INTO alum values('49713812W','Xabier','Barreiro Alberte','02/05/23','664642464');
-INSERT INTO alum values('49713813Q','Uxia','Barreiro Alberte','05/12/07','664756432');
-INSERT INTO prof values('49234212Z','Susana','Herrera Gomez','12/05/1998','biología');
-INSERT INTO prof values('49124244Y','Juan','Gomez Rodriguez','12/05/1998','metafísica');
-INSERT INTO asig values('1', 'Biología');
-INSERT INTO asig values('2', 'Metafísica');
+INSERT INTO alum values('49713812W','Xabier','Barreiro Alberte','664642464');
+INSERT INTO alum values('49713813Q','Uxia','Barreiro Alberte','664756432');
+INSERT INTO prof values('49234212Z','Susana','Herrera Gomez','biologÃ­a');
+INSERT INTO prof values('49124244Y','Juan','Gomez Rodriguez','metafÃ­sica');
+INSERT INTO asig values('1', 'BiologÃ­a');
+INSERT INTO asig values('2', 'MetafÃ­sica');
 INSERT INTO clase values(1, getalum('49713813Q'), getprof('49234212Z'), getasig(1))
 
 

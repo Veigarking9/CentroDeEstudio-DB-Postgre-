@@ -8,7 +8,7 @@ import java.util.Date;
 public class Clase {
     
     private int NCLASE;
-    private int ASIG;
+    private String ASIG;
     private String ALUM;
     private String PROF;
 
@@ -16,7 +16,7 @@ public class Clase {
 
     
 
-    public Clase(int NCLASE, int ASIG, String ALUM, String PROF) {
+    public Clase(int NCLASE, String ASIG, String ALUM, String PROF) {
           this.NCLASE = NCLASE;
           this.ASIG = ASIG;
           this.ALUM = ALUM;
@@ -36,14 +36,15 @@ public class Clase {
     public void setNCLASE(int NCLASE) {
         this.NCLASE = NCLASE;
     }
-    
-    public int getASIG() {
+
+    public String getASIG() {
         return ASIG;
     }
 
-    public void setASIG(int ASIG) {
+    public void setASIG(String ASIG) {
         this.ASIG = ASIG;
     }
+    
 
     public String getALUM() {
         return ALUM;
