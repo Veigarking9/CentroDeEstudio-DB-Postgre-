@@ -1,0 +1,31 @@
+
+create type address_type as (id integer, city text, country text);
+
+create type person_type as (DNI text, nombre text, apellido text, nacimiento date);
+
+create table person of person_type;
+
+
+create table alum
+(
+  telefono integer
+) inherits (person);
+
+create table prof
+(
+ departamento text
+) inherits (person);
+
+create table asig
+(
+ cod_asig integer,
+ nombre text
+);
+
+create table clase
+(
+ nclase integer,
+ alumno alum,
+ profesor prof,
+ asignatura asig
+)
