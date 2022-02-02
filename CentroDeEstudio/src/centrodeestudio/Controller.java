@@ -149,11 +149,11 @@ public class Controller {
                 break;
                 
             case 6:
+
                 //GET PROFESORES POR DNI
                 try {
                     String DNIsearch = v.getDNI();
                     profesoresDNI = profDAO.getByDNI(mySQLFactory.getConnection(), DNIsearch);
-                    System.out.println(profDAO.get(0).getDNI());
                 } catch (Exception e) {
                     System.out.println("ERROR EJECUTANDO LA OPTENCIÓN DE PROFESORES POR DNI PARA MOSTRARLAS EN LA VISTA: "+"\n");
                     e.printStackTrace();
@@ -161,7 +161,7 @@ public class Controller {
 
                 //MOSTRAR PROFESORES POR DNI
                 for (int i = 0; i < profesoresDNI.size(); i++) {
-                    output += " DNI -> " + profDAO.get(i).getDNI() + " | NOMBRE -> " + profDAO.get(i).getPNAME() + " | APELLIDOS -> " + profDAO.get(i).getPAPEL() + " | DEPARTAMENTO -> " + profDAO.get(i).getDEP() + "\n";
+                    output += " DNI -> " + profesoresDNI.get(i).getDNI() + " | NOMBRE -> " + profesoresDNI.get(i).getPNAME() + " | APELLIDOS -> " + profesoresDNI.get(i).getPAPEL() + " | DEPARTAMENTO -> " + profesoresDNI.get(i).getDEP() + "\n";
                 }
                 v.showMessage(output);
                 break;
